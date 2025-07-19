@@ -1,12 +1,9 @@
-export default function handler(req: Request): Response {
-  const url = new URL(req.url);
-  
-  if (url.pathname === "/") {
-    return new Response("Hello!", {
-      status: 200,
-      headers: { "content-type": "text/plain" },
-    });
-  }
-  
-  return new Response("Not Found", { status: 404 });
-}
+import { Hono } from "hono";
+
+const app = new Hono();
+
+app.get("/", (c) => {
+  return c.text("Hello Hono!");
+});
+
+Deno.serve(app.fetch);
